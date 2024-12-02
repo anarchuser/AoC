@@ -6,14 +6,32 @@ fn main() {
     let input: String = fs::read_to_string(&args[1])
         .expect("Input file missing");
 
-    println!("first = {}", first(&input));
-    println!("second = {}", second(&input));
+    let mut ids: (Vec<i32>, Vec<i32>) = input
+        .lines()
+        .map(|a| a.split_once("   ").unwrap())
+        .map(|(a, b)| (
+            a.parse::<i32>().unwrap(),
+            b.parse::<i32>().unwrap()
+        ))
+        .collect::<(Vec<i32>, Vec<i32>)>()
+        ;
+    
+    ids.0.sort();
+    ids.1.sort();
+    
+    println!("first = {}", first(&ids));
+    println!("second = {}", second(&ids));
 }
 
-fn first(input: &String) -> u32 {
-    0
+fn first((a, b): &(Vec<i32>, Vec<i32>)) -> i32 {
+    a
+        .iter()
+        .zip(b
+            .iter())
+        .map(|(a, b)| i32::abs(a - b))
+        .sum()
 }
 
-fn second(input: &String) -> u32 {
+fn second((a, b): &(Vec<i32>, Vec<i32>)) -> i32 {
     0
 }
