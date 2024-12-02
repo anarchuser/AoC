@@ -33,5 +33,13 @@ fn first((a, b): &(Vec<i32>, Vec<i32>)) -> i32 {
 }
 
 fn second((a, b): &(Vec<i32>, Vec<i32>)) -> i32 {
-    0
+    a
+        .iter()
+        .map(|x| *x * b
+            .iter()
+            .filter(|y| x == *y)
+            .count()
+            as i32
+        )
+        .sum::<i32>()
 }
